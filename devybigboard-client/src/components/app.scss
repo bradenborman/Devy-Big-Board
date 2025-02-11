@@ -1,0 +1,77 @@
+@import './board.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Lato", serif;
+}
+
+.app-wrapper {
+    display: flex;
+    height: 100vh;
+
+    .main-component {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow: auto;
+
+        &.center-content {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .board-parameters {
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            border: 1px solid black;
+            padding: 20px;
+            min-width: 450px;
+            font-size: 2em;
+
+            h3 {
+                margin-bottom: 20px;
+                font-size: .9em;
+            }
+
+            label {
+                display: block;
+                margin: 10px 0;
+            }
+
+            select,
+            input[type="range"] {
+                padding: 5px;
+                margin-top: 5px;
+                width: 100%;
+                font-size: 1em;
+            }
+
+            button {
+                padding: 10px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                cursor: pointer;
+                margin-top: 20px;
+
+                &:hover {
+                    background-color: #45a049;
+                }
+            }
+
+
+            .kudos {
+                font-size: 14px;
+                margin-top: 50px;
+            }
+        }
+
+    }
+}

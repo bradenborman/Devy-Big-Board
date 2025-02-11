@@ -1,0 +1,69 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.2'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'borman'
+version='0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+task copyClient(dependsOn: ":devybigboard-client:clientBuild") {
+
+	doFirst {
+		delete "src/main/resources/static"
+		delete "src/main/resources/templates"
+	}
+	doLast {
+		copy {
+			from new File(project(":devybigboard-client").getProjectDir(), "build")
+			into "src/main/resources/static"
+		}
+		copy {
+			from new File(project(":devybigboard-client").getProjectDir(), "build/index.html")
+			into "src/main/resources/templates"
+		}
+	}
+}
+
+jar {
+	enabled = false
+}
+
+task finalizeBuild(type: Copy) {
+	dependsOn 'build'
+	from "${buildDir}/libs/devy-big-board-${version}.jar"
+	into "${buildDir}/libs"
+	rename "devy-big-board-server-${version}.jar", "devy-big-board.jar"
+	delete "devy-big-board-server-${version}.jar"
+}
+
+processResources.dependsOn(copyClient)
+clean.dependsOn(":devybigboard-client:clientClean")
+build.finalizedBy(finalizeBuild)
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
