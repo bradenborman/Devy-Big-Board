@@ -53,13 +53,17 @@ jar {
 	enabled = false
 }
 
-task finalizeBuild(type: Copy) {
+task finalizeBuild {
 	dependsOn 'build'
-	from "${buildDir}/libs/devy-big-board-${version}.jar"
-	into "${buildDir}/libs"
-	rename "devy-big-board-server-${version}.jar", "devy-big-board.jar"
-	delete "devy-big-board-server-${version}.jar"
+	doLast {
+		def buildLibs = file("${buildDir}/libs")
+		def oldJar = file("${buildLibs}/devybigboard-server-${version}.jar")
+		def newJar = file("${buildLibs}/devy-big-board.jar")
+		if (oldJar.exists())
+			oldJar.renameTo(newJar)
+	}
 }
+
 
 processResources.dependsOn(copyClient)
 clean.dependsOn(":devybigboard-client:clientClean")
