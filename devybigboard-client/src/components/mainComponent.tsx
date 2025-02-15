@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BigBoard, { Player } from './bigBoard';
 import PlayerList from './playerList';
 import BoardParameters from './boardParametes';
@@ -11,6 +11,10 @@ const MainComponent: React.FC = () => {
     const [isGridCreated, setIsGridCreated] = useState<boolean>(false);
     const [players, setPlayers] = useState<(Player | null)[][]>([]);
     const [playerPool, setPlayerPool] = useState<Player[]>(initialPlayerPool);
+
+
+    //Todo - remove for final
+    // useEffect(() => { createGrid() }, [])
 
     const createGrid = () => {
         setPlayers(Array.from({ length: rounds }, () => Array(teams).fill(null)));
@@ -51,6 +55,68 @@ const MainComponent: React.FC = () => {
         setPlayers(Array.from({ length: rounds }, () => Array(teams).fill(null)));
     };
 
+    const exportDraft = () => {
+        let draftText = "<h2>Rookie Fantasy Football Draft Order:</h2><ul>";
+
+        players.forEach((row, rIndex) => {
+            if (rIndex > 0) {
+                draftText += "<br>"; // Add spacing between rounds
+            }
+            row.forEach((player, cIndex) => {
+                const round = rIndex + 1;
+                const pick = cIndex + 1;
+                draftText += `<li>${round}.${pick.toString().padStart(2, '0')} ${player ? player.name : '---'}</li>`;
+            });
+        });
+
+        draftText += "</ul>";
+
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Draft Order</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        h2 { text-align: center; margin-top:0px;}
+                        ul { list-style-type: none; padding: 0; }
+                        li { font-size: 18px; margin: 5px 0; }
+                        @media print {
+                            @page { margin: 0; }
+                            body { margin: 1in; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${draftText}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+    };
+
+    const downloadText = () => {
+        let draftText = "Rookie Fantasy Football Draft Order:\n\n";
+
+        players.forEach((row, rIndex) => {
+            row.forEach((player, cIndex) => {
+                const round = rIndex + 1;
+                const pick = cIndex + 1;
+                draftText += `${round}.${pick.toString().padStart(2, '0')} ${player ? player.name : '---'}\n`;
+            });
+        });
+
+        const blob = new Blob([draftText], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'rookie_draft_order.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     return (
         <div className={`main-component ${!isGridCreated ? 'center-content' : ''}`}>
@@ -72,6 +138,7 @@ const MainComponent: React.FC = () => {
                         addPlayerToSpot={() => { }}
                         removeDraftedPlayer={removeDraftedPlayer}
                         clearBoard={clearBoard}
+                        exportDraft={exportDraft}
                     />
                 </div>
             )}

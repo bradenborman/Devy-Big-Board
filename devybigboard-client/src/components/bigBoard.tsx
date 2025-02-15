@@ -16,15 +16,15 @@ interface BigBoardProps {
     addPlayerToSpot: (row: number, col: number, player: Player) => void;
     removeDraftedPlayer: (row: number, col: number) => void;
     clearBoard: () => void;
-
+    exportDraft: () => void;
 }
 
-const BigBoard: React.FC<BigBoardProps> = ({ teams, rounds, players, removeDraftedPlayer, clearBoard }) => {
+const BigBoard: React.FC<BigBoardProps> = ({ teams, rounds, players, removeDraftedPlayer, clearBoard, exportDraft }) => {
     return (
         <div className='big-board-wrapper'>
             <div className='menu'>
                 <button onClick={clearBoard} className='menu-item'>Clear Board</button>
-                <button className='menu-item'>Export Draft</button>
+                <button onClick={exportDraft} className='menu-item'>Export Draft</button>
             </div>
             <div
                 className="big-board"
