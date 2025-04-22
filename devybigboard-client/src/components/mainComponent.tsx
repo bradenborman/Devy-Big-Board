@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import BigBoard, { Player } from './bigBoard';
 import PlayerList from './playerList';
 import BoardParameters from './boardParametes';
@@ -7,16 +9,37 @@ import AddPlayerModal from './AddPlayerModal';
 
 const MainComponent: React.FC = () => {
 
-    const [teams, setTeams] = useState<number>(12);
-    const [rounds, setRounds] = useState<number>(3);
-    const [isGridCreated, setIsGridCreated] = useState<boolean>(false);
-    const [players, setPlayers] = useState<(Player | null)[][]>([]);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const params = new URLSearchParams(location.search);
+    const teamsFromURL = Number(params.get('teams'));
+    const roundsFromURL = Number(params.get('rounds'));
+    const hasValidParams = teamsFromURL > 0 && roundsFromURL > 0;
+
+
+    const [teams, setTeams] = useState<number>(teamsFromURL || 12);
+    const [rounds, setRounds] = useState<number>(roundsFromURL || 3);
+    const [players, setPlayers] = useState<(Player | null)[][]>(
+        hasValidParams
+            ? Array.from({ length: roundsFromURL }, () => Array(teamsFromURL).fill(null))
+            : []
+    );
+    const [isGridCreated, setIsGridCreated] = useState<boolean>(hasValidParams);
+
     const [playerPool, setPlayerPool] = useState<Player[]>([]);
     const [tierBreaks, setTierBreaks] = useState<{ row: number; col: number }[]>([]);
 
     const [menuVisible, setMenuVisible] = useState(false);
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
     const [showAddPlayerModal, setShowAddPlayerModal] = useState(false);
+
+    useEffect(() => {
+        if (hasValidParams) {
+            setPlayers(Array.from({ length: roundsFromURL }, () => Array(teamsFromURL).fill(null)));
+        }
+    }, [hasValidParams, roundsFromURL, teamsFromURL]);
+
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -61,9 +84,16 @@ const MainComponent: React.FC = () => {
     }, []);
 
     const createGrid = () => {
+        const searchParams = new URLSearchParams();
+        searchParams.set('teams', teams.toString());
+        searchParams.set('rounds', rounds.toString());
+
+        navigate({ pathname: location.pathname, search: searchParams.toString() });
+
         setPlayers(Array.from({ length: rounds }, () => Array(teams).fill(null)));
         setIsGridCreated(true);
     };
+
 
     const addPlayerToNextOpenSpot = (player: Player) => {
         setPlayers((prevPlayers) => {
