@@ -1,10 +1,20 @@
-Tristen Keys | WR | 17 | N/A | 2028
-Cederian Morgan | WR | 17 | N/A | 2028
-Chris Henry Jr. | WR | 17 | N/A | 2028
-Calvin Russell | WR | 17 | N/A | 2028
-Keisean Henderson | ATH | 17 | N/A | 2028
-Savion Hiter | RB | 17 | N/A | 2028
-Tradarian Ball | RB | 17 | N/A | 2028
-Darius Gray | IOL | 17 | N/A | 2028
-Brock Harris | TE | 17 | N/A | 2028
-Mark Bowman | TE | 17 | N/A | 2028
+Dakorien Moore | WR | 18 | Oregon | 2028
+Bryce Underwood | QB | 18 | Michigan | 2028
+Keelon Russell | QB | 18 | Alabama | 2028
+Tavien St. Clair | QB | 18 | Ohio State | 2028
+Julian Lewis | QB | 18 | Colorado | 2028
+Husan Longstreet | QB | 18 | USC | 2028
+Kaliq Lockett | WR | 18 | Texas | 2028
+Caleb Cunningham | WR | 18 | Undecided | 2028
+Dallas Wilson | WR | 18 | Undecided | 2028
+Jerome Myles | WR | 18 | Undecided | 2028
+Phillip Bell | WR | 18 | Undecided | 2028
+Jaden Nickens | WR | 18 | Undecided | 2028
+Marcus Harris | WR | 18 | Undecided | 2028
+Chris Lawson | WR | 18 | Undecided | 2028
+Jadyn Robinson | WR | 18 | Undecided | 2028
+Michael Terry III | ATH | 18 | Undecided | 2028
+Harlem Berry | RB | 18 | Undecided | 2028
+Jordon Davison | RB | 18 | Undecided | 2028
+Karson Cox | RB | 18 | Undecided | 2028
+Linkon Cure | TE | 18 | Undecided | 2028

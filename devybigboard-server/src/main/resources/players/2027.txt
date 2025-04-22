@@ -16,7 +16,7 @@ Mike Matthews | WR | 0 | Tennessee | 2027
 Courtney Crutchfield | WR | 0 | Arkansas | 2027
 Bryant Wesco | WR | 0 | Clemson | 2027
 Mylan Graham | WR | 0 | Ohio State | 2027
-Joshisa Trader | WR | 0 | Miami | 2027
+JoJo Trader | WR | 0 | Miami | 2027
 Taylor Tatum | RB | 0 | Oklahoma | 2027
 Nate Frazier | RB | 0 | Georgia | 2027
 Jerrick Gibson | RB | 0 | Texas | 2027
