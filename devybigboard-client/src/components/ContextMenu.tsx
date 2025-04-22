@@ -15,8 +15,9 @@ interface ContextMenuProps {
     onLastPlayerRemove: () => void;
     isBoardPopulated: boolean;
     onAddPlayerClick: () => void;
+    onAddTierBreak: () => void;
+    onRemoveLastTierBreak: () => void;
 }
-
 
 const ContextMenu: React.FC<ContextMenuProps> = ({
     visible,
@@ -26,7 +27,9 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
     onExportDraft,
     onLastPlayerRemove,
     isBoardPopulated,
-    onAddPlayerClick
+    onAddPlayerClick,
+    onAddTierBreak,
+    onRemoveLastTierBreak
 }) => {
     const menuRef = useRef<HTMLUListElement>(null);
 
@@ -64,7 +67,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
             </li>
             <li className="menu-separator" />
             <li className={`menu-item ${!isBoardPopulated ? 'menu-item-disabled' : ''}`}>
-                <button type="button" className="menu-btn" onClick={isBoardPopulated ? onLastPlayerRemove : undefined}>
+                <button type="button" className="menu-btn hover-danger" onClick={isBoardPopulated ? onLastPlayerRemove : undefined}>
                     <span className="menu-text">Remove Last Pick</span>
                 </button>
             </li>
@@ -74,9 +77,18 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
                     <span className="menu-text">Add Player</span>
                 </button>
             </li>
-
+            <li className="menu-separator" />
+            <li className={`menu-item ${!isBoardPopulated ? 'menu-item-disabled' : ''}`}>
+                <button type="button" className="menu-btn" onClick={onAddTierBreak}>
+                    <span className="menu-text">Tier Break After Last Pick</span>
+                </button>
+            </li>
+            <li className="menu-item">
+                <button type="button" className="menu-btn hover-danger" onClick={onRemoveLastTierBreak}>
+                    <span className="menu-text">Undo Last Tier Break</span>
+                </button>
+            </li>
         </ul>
-
     );
 };
 

@@ -48,6 +48,13 @@
         background: linear-gradient(to bottom, #5D6D79, #2E3940);
         color: #fff;
     }
+
+    &.hover-danger {
+        &:hover {
+            color: #fff;
+            background: linear-gradient(to right, #5D6D79, #5D6D79, #ce0f0f);
+        }
+    }
 }
 
 .menu-text {

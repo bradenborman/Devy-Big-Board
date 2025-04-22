@@ -13,19 +13,23 @@ interface BigBoardProps {
     teams: number;
     rounds: number;
     players: (Player | null)[][];
-    addPlayerToSpot: (row: number, col: number, player: Player) => void;
     removeDraftedPlayer: (row: number, col: number) => void;
-    clearBoard: () => void;
-    exportDraft: () => void;
+    tierBreaks: { row: number; col: number }[];
 }
 
-const BigBoard: React.FC<BigBoardProps> = ({ teams, rounds, players, removeDraftedPlayer, clearBoard, exportDraft }) => {
+const BigBoard: React.FC<BigBoardProps> = ({
+    teams,
+    rounds,
+    players,
+    removeDraftedPlayer,
+    tierBreaks
+}) => {
+
+    const isTierBreak = (row: number, col: number) =>
+        tierBreaks.some((tb) => tb.row === row + 1 && tb.col === col + 1);
+
     return (
-        <div className='big-board-wrapper'>
-            {/* <div className='menu'>
-                <button onClick={clearBoard} className='menu-item'>Clear Board</button>
-                <button onClick={exportDraft} className='menu-item'>Export Draft</button>
-            </div> */}
+        <div className="big-board-wrapper">
             <div
                 className="big-board"
                 style={{ '--teams': teams, '--rounds': rounds } as React.CSSProperties}
@@ -39,6 +43,7 @@ const BigBoard: React.FC<BigBoardProps> = ({ teams, rounds, players, removeDraft
                                 row={rowIndex + 1}
                                 col={colIndex + 1}
                                 removeDraftedPlayer={removeDraftedPlayer}
+                                isTierBreak={isTierBreak(rowIndex, colIndex)}
                             />
                         ))}
                     </div>
@@ -47,6 +52,5 @@ const BigBoard: React.FC<BigBoardProps> = ({ teams, rounds, players, removeDraft
         </div>
     );
 };
-
 
 export default BigBoard;

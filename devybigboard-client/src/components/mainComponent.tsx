@@ -4,7 +4,6 @@ import PlayerList from './playerList';
 import BoardParameters from './boardParametes';
 import ContextMenu from './ContextMenu';
 import AddPlayerModal from './AddPlayerModal';
-// import { initialPlayerPool } from '../data/players';
 
 const MainComponent: React.FC = () => {
 
@@ -13,13 +12,11 @@ const MainComponent: React.FC = () => {
     const [isGridCreated, setIsGridCreated] = useState<boolean>(false);
     const [players, setPlayers] = useState<(Player | null)[][]>([]);
     const [playerPool, setPlayerPool] = useState<Player[]>([]);
-
+    const [tierBreaks, setTierBreaks] = useState<{ row: number; col: number }[]>([]);
 
     const [menuVisible, setMenuVisible] = useState(false);
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
-
     const [showAddPlayerModal, setShowAddPlayerModal] = useState(false);
-
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -27,27 +24,41 @@ const MainComponent: React.FC = () => {
         setMenuVisible(true);
     };
 
+    const addTierBreakAfterLastPick = () => {
+        for (let r = rounds - 1; r >= 0; r--) {
+            for (let c = teams - 1; c >= 0; c--) {
+                if (players[r][c]) {
+                    const newBreak = { row: r + 1, col: c + 1 };
+                    const alreadyExists = tierBreaks.some(tb => tb.row === newBreak.row && tb.col === newBreak.col);
+                    if (!alreadyExists) {
+                        setTierBreaks((prev) => [...prev, newBreak]);
+                    }
+                    return;
+                }
+            }
+        }
+    };
 
-    //Todo - remove for final
-    // useEffect(() => { createGrid() }, [])
+    const removeLastTierBreak = () => {
+        setTierBreaks((prev) => prev.slice(0, -1));
+    };
 
+    const clearTierBreaks = () => setTierBreaks([]);
 
     const addNewPlayer = (player: Player) => {
         setPlayerPool((prev) => [player, ...prev]);
     };
-
 
     const setDefaultPlayerPool = () => {
         fetch("/api/players")
             .then((res) => res.json())
             .then((data: Player[]) => setPlayerPool(data))
             .catch((err) => console.error("Failed to fetch players:", err));
-    }
+    };
 
     useEffect(() => {
         setDefaultPlayerPool();
     }, []);
-
 
     const createGrid = () => {
         setPlayers(Array.from({ length: rounds }, () => Array(teams).fill(null)));
@@ -106,7 +117,6 @@ const MainComponent: React.FC = () => {
         });
     };
 
-
     const clearBoard = () => {
         setDefaultPlayerPool();
         setPlayers(Array.from({ length: rounds }, () => Array(teams).fill(null)));
@@ -117,7 +127,7 @@ const MainComponent: React.FC = () => {
 
         players.forEach((row, rIndex) => {
             if (rIndex > 0) {
-                draftText += "<br>"; // Add spacing between rounds
+                draftText += "<br>";
             }
             row.forEach((player, cIndex) => {
                 const round = rIndex + 1;
@@ -155,28 +165,7 @@ const MainComponent: React.FC = () => {
         }
     };
 
-    // const downloadText = () => {
-    //     let draftText = "Rookie Fantasy Football Draft Order:\n\n";
-
-    //     players.forEach((row, rIndex) => {
-    //         row.forEach((player, cIndex) => {
-    //             const round = rIndex + 1;
-    //             const pick = cIndex + 1;
-    //             draftText += `${round}.${pick.toString().padStart(2, '0')} ${player ? player.name : '---'}\n`;
-    //         });
-    //     });
-
-    //     const blob = new Blob([draftText], { type: 'text/plain' });
-    //     const link = document.createElement('a');
-    //     link.href = URL.createObjectURL(blob);
-    //     link.download = 'rookie_draft_order.txt';
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     document.body.removeChild(link);
-    // };
-
     const isBoardPopulated = players.some((row) => row.some((cell) => cell !== null));
-
 
     return (
         <div className={`main-component ${!isGridCreated ? 'center-content' : ''}`}>
@@ -194,6 +183,8 @@ const MainComponent: React.FC = () => {
                         visible={menuVisible}
                         position={menuPosition}
                         onClose={() => setMenuVisible(false)}
+                        onAddTierBreak={addTierBreakAfterLastPick}
+                        onRemoveLastTierBreak={removeLastTierBreak}
                         onClearBoard={() => {
                             clearBoard();
                             setMenuVisible(false);
@@ -210,7 +201,6 @@ const MainComponent: React.FC = () => {
                             setMenuVisible(false);
                             setShowAddPlayerModal(true);
                         }}
-
                         isBoardPopulated={isBoardPopulated}
                     />
                     <AddPlayerModal
@@ -226,10 +216,8 @@ const MainComponent: React.FC = () => {
                         rounds={rounds}
                         teams={teams}
                         players={players}
-                        addPlayerToSpot={() => { }}
                         removeDraftedPlayer={removeDraftedPlayer}
-                        clearBoard={clearBoard}
-                        exportDraft={exportDraft}
+                        tierBreaks={tierBreaks}
                     />
                 </div>
             )}

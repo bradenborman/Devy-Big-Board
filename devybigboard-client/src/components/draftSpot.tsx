@@ -6,11 +6,27 @@ interface DraftSpotProps {
     row: number;
     col: number;
     removeDraftedPlayer: (row: number, col: number) => void;
+    isTierBreak?: boolean;
+    onRightClick?: (row: number, col: number) => void;
 }
 
-const DraftSpot: React.FC<DraftSpotProps> = ({ player, row, col, removeDraftedPlayer }) => {
+const DraftSpot: React.FC<DraftSpotProps> = ({
+    player,
+    row,
+    col,
+    removeDraftedPlayer,
+    isTierBreak = false,
+    onRightClick
+}) => {
     return (
-        <div className="draft-spot" onDoubleClick={() => player && removeDraftedPlayer(row, col)}>
+        <div
+            className={`draft-spot${isTierBreak ? ' tier-break' : ''}`}
+            onDoubleClick={() => player && removeDraftedPlayer(row, col)}
+            onContextMenu={(e) => {
+                e.preventDefault();
+                onRightClick?.(row, col);
+            }}
+        >
             {player ? (
                 <>
                     <p className="slot">{`${row}.${col}`}</p>
@@ -26,6 +42,5 @@ const DraftSpot: React.FC<DraftSpotProps> = ({ player, row, col, removeDraftedPl
         </div>
     );
 };
-
 
 export default DraftSpot;
