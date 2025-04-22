@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BigBoard, { Player } from './bigBoard';
 import PlayerList from './playerList';
 import BoardParameters from './boardParametes';
-import { initialPlayerPool } from '../data/players';
+// import { initialPlayerPool } from '../data/players';
 
 const MainComponent: React.FC = () => {
 
@@ -10,11 +10,24 @@ const MainComponent: React.FC = () => {
     const [rounds, setRounds] = useState<number>(3);
     const [isGridCreated, setIsGridCreated] = useState<boolean>(false);
     const [players, setPlayers] = useState<(Player | null)[][]>([]);
-    const [playerPool, setPlayerPool] = useState<Player[]>(initialPlayerPool);
+    const [playerPool, setPlayerPool] = useState<Player[]>([]);
 
 
     //Todo - remove for final
     // useEffect(() => { createGrid() }, [])
+
+
+    const setDefaultPlayerPool = () => {
+        fetch("/api/players")
+            .then((res) => res.json())
+            .then((data: Player[]) => setPlayerPool(data))
+            .catch((err) => console.error("Failed to fetch players:", err));
+    }
+
+    useEffect(() => {
+        setDefaultPlayerPool();
+    }, []);
+
 
     const createGrid = () => {
         setPlayers(Array.from({ length: rounds }, () => Array(teams).fill(null)));
@@ -51,7 +64,7 @@ const MainComponent: React.FC = () => {
     };
 
     const clearBoard = () => {
-        setPlayerPool(initialPlayerPool);
+        setDefaultPlayerPool();
         setPlayers(Array.from({ length: rounds }, () => Array(teams).fill(null)));
     };
 
