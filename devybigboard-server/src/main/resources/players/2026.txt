@@ -22,6 +22,7 @@ Quinton Martin Jr. | RB | 19 | Penn State | 2027
 Duce Robinson | WR | 19 | Florida State | 2026
 Conner Weigman | QB | 19 | Houston | 2026
 Rueben Owens | RB | 19 | Texas A&M | 2026
+Hykeem Williams | WR | 0 | Florida State | 2026
 Brandon Inniss | WR | 19 | Ohio State | 2026
 Devin Brown | QB | 21 | California | 2025
 Eugene Wilson III | WR | 19 | Florida | 2026

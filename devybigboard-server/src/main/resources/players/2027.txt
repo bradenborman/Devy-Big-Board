@@ -5,7 +5,25 @@ Cam Coleman | WR | 18 | Auburn | 2027
 Dylan Raiola | QB | 18 | Nebraska | 2027
 Julian Sayin | QB | 18 | Ohio State | 2027
 Ryan Wingo | WR | 19 | Texas | 2027
-Dylan Raiola | QB | 18 | Nebraska | 2027
 Demond Williams Jr. | QB | 19 | Washington | 2027
 CJ Bailey | QB | 18 | NC State | 2027
 Tyler Cherry | QB | 18 | Duke | 2027
+Micah Hudson | WR | 0 | Texas Tech | 2027
+TJ Moore | WR | 0 | Clemson | 2027
+Gatlin Bair | WR | 0 | Boise State | 2027
+Perry Thompson | WR | 0 | Auburn | 2027
+Mike Matthews | WR | 0 | Tennessee | 2027
+Courtney Crutchfield | WR | 0 | Arkansas | 2027
+Bryant Wesco | WR | 0 | Clemson | 2027
+Mylan Graham | WR | 0 | Ohio State | 2027
+Joshisa Trader | WR | 0 | Miami | 2027
+Taylor Tatum | RB | 0 | Oklahoma | 2027
+Nate Frazier | RB | 0 | Georgia | 2027
+Jerrick Gibson | RB | 0 | Texas | 2027
+Kedren Young | RB | 0 | Notre Dame | 2027
+Daniel Hill | RB | 0 | Alabama | 2027
+Caden Durham | RB | 0 | LSU | 2027
+James Peoples | RB | 0 | Ohio State | 2027
+Quinton Martin | RB | 0 | Penn State | 2027
+Kevin Riley | RB | 0 | Alabama | 2027
+Dilin Jones | RB | 0 | Wisconsin | 2027

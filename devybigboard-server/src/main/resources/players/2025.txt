@@ -1,64 +1,56 @@
 Ashton Jeanty | RB | 21 | Boise State | 2025
-Tetairoa McMillan | WR | 21 | Arizona | 2025
-Emeka Egbuka | WR | 22 | Ohio State | 2025
-Omarion Hampton | RB | 19 | North Carolina | 2025
 Cam Ward | QB | 21 | Miami | 2025
-Tyler Warren | TE | 22 | Penn State | 2025
+Shedeur Sanders | QB | 22 | Colorado | 2025
+Tetairoa McMillan | WR | 21 | Arizona | 2025
+Omarion Hampton | RB | 19 | North Carolina | 2025
+Emeka Egbuka | WR | 22 | Ohio State | 2025
 TreVeyon Henderson | RB | 21 | Ohio State | 2025
+Jaxson Dart | QB | 21 | Mississippi | 2025
+Tyler Warren | TE | 22 | Penn State | 2025
 Luther Burden III | WR | 20 | Missouri | 2025
 Quinshon Judkins | RB | 21 | Ohio State | 2025
-Shedeur Sanders | QB | 22 | Colorado | 2025
 Kaleb Johnson | RB | 19 | Iowa | 2025
+Matthew Golden | WR | 20 | Texas | 2025
+Travis Hunter | WR | 21 | Colorado | 2025
+Tre Harris | WR | 20 | Mississippi | 2025
 Colston Loveland | TE | 19 | Michigan | 2025
 Jalen Milroe | QB | 21 | Alabama | 2025
-Tre Harris | WR | 20 | Mississippi | 2025
-Isaiah Bond | WR | 20 | Texas | 2025
-Devin Neal | RB | 21 | Kansas | 2025
-Ollie Gordon II | RB | 21 | Oklahoma State | 2025
 Elic Ayomanor | WR | 21 | Stanford | 2025
-Dylan Sampson | RB | 20 | Tennessee | 2025
-Matthew Golden | WR | 20 | Texas | 2025
-Xavier Restrepo | WR | 21 | Miami | 2025
-Trevor Etienne | RB | 20 | Georgia | 2025
-Jordan James | RB | 20 | Oregon | 2025
-Damien Martinez | RB | 20 | Miami | 2025
-Jaxson Dart | QB | 21 | Mississippi | 2025
-Cam Skattebo | RB | 21 | Arizona State | 2025
-Jalen Royals | WR | 21 | Utah State | 2025
 Jayden Higgins | WR | 21 | Iowa State | 2025
-Bhayshul Tuten | RB | 21 | Virginia Tech | 2025
-Brashard Smith | RB | 21 | Miami | 2025
-DJ Giddens | RB | 21 | Kansas State | 2025
-Elijah Arroyo | TE | 21 | Miami | 2025
-Elijhah Badger | WR | 21 | Arizona State | 2025
-Gunnar Helm | TE | 21 | Texas | 2025
-Harold Fannin Jr. | TE | 21 | Bowling Green State | 2025
-Isaac TeSlaa | WR | 22 | Arkansas | 2025
-Jack Bech | WR | 21 | TCU | 2025
-Jacory Croskey-Merritt | RB | 22 | New Mexico | 2025
-Jarquez Hunter | RB | 21 | Auburn | 2025
-Jaydon Blue | RB | 20 | Texas | 2025
 Jaylin Noel | WR | 21 | Iowa State | 2025
-Kyle McCord | QB | 21 | Syracuse | 2025
-Kyle Monangai | RB | 22 | Rutgers | 2025
-Kyle Williams | WR | 21 | Washington State | 2025
-LeQuint Allen Jr. | RB | 21 | Syracuse | 2025
-Marcus Yarns | RB | 22 | Delaware | 2025
-Mason Taylor | TE | 20 | LSU | 2025
-Nick Nash | WR | 22 | San Jose State | 2025
-Oronde Gadsden II | TE | 21 | Syracuse | 2025
-Quinn Ewers | QB | 21 | Texas | 2025
+Bhayshul Tuten | RB | 21 | Virginia Tech | 2025
+Dylan Sampson | RB | 20 | Tennessee | 2025
+Tyler Shough | QB | 23 | Louisville | 2025
+Cam Skattebo | RB | 21 | Arizona State | 2025
+Devin Neal | RB | 21 | Kansas | 2025
 RJ Harvey | RB | 22 | UCF | 2025
-Raheim Sanders | RB | 21 | Arkansas | 2025
-Ricky White III | WR | 22 | UNLV | 2025
-Savion Williams | WR | 22 | TCU | 2025
+Jalen Royals | WR | 21 | Utah State | 2025
+Jack Bech | WR | 21 | TCU | 2025
+Elijah Arroyo | TE | 21 | Miami | 2025
+Damien Martinez | RB | 20 | Miami | 2025
+Brashard Smith | RB | 21 | Miami | 2025
+Harold Fannin Jr. | TE | 21 | Bowling Green State | 2025
+Mason Taylor | TE | 20 | LSU | 2025
+Jalen Milroe | QB | 21 | Alabama | 2025
 Tahj Brooks | RB | 22 | Texas Tech | 2025
 Tai Felton | WR | 21 | Maryland | 2025
 Terrance Ferguson | TE | 21 | Oregon | 2025
-Tez Johnson | WR | 22 | Oregon | 2025
-Thomas Fidone | TE | 21 | Nebraska | 2025
+Ollie Gordon II | RB | 21 | Oklahoma State | 2025
 Tory Horton | WR | 22 | Colorado State | 2025
-Travis Hunter | WR | 21 | Colorado | 2025
-Tyler Shough | QB | 23 | Louisville | 2025
-Will Howard | QB | 22 | Ohio State | 2025
+Kyle Williams | WR | 21 | Washington State | 2025
+Jarquez Hunter | RB | 21 | Auburn | 2025
+Isaiah Bond | WR | 20 | Texas | 2025
+Marcus Yarns | RB | 22 | Delaware | 2025
+Kyle Monangai | RB | 22 | Rutgers | 2025
+Savion Williams | WR | 22 | TCU | 2025
+Jordan James | RB | 20 | Oregon | 2025
 Woody Marks | RB | 22 | Mississippi State | 2025
+Oronde Gadsden II | TE | 21 | Syracuse | 2025
+Jaydon Blue | RB | 20 | Texas | 2025
+Trevor Etienne | RB | 20 | Georgia | 2025
+Elijhah Badger | WR | 21 | Arizona State | 2025
+Gunnar Helm | TE | 21 | Texas | 2025
+Thomas Fidone | TE | 21 | Nebraska | 2025
+Quinn Ewers | QB | 21 | Texas | 2025
+Will Howard | QB | 22 | Ohio State | 2025
+Kyle McCord | QB | 21 | Syracuse | 2025
