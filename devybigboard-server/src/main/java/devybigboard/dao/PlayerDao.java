@@ -53,12 +53,14 @@ public class PlayerDao {
                 .collect(Collectors.toMap(
                         Player::name,
                         p -> p,
-                        (existing, replacement) -> existing
+                        (existing, replacement) -> existing,
+                        java.util.LinkedHashMap::new // preserve file order
                 ))
                 .values()
                 .stream()
                 .sorted(Comparator.comparingInt(p -> positionOrder(p.position())))
                 .toList();
+
 
     }
 
