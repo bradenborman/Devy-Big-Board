@@ -40,7 +40,7 @@ public class PlayerDao {
                         reader.lines()
                                 .map(String::trim)
                                 .filter(line -> !line.isEmpty())
-                                .map(this::parseLine)
+                                .map(line -> parseLine(line, fileYear))
                                 .forEach(allPlayers::add);
                     }
                 }
@@ -62,7 +62,7 @@ public class PlayerDao {
 
     }
 
-    private Player parseLine(String line) {
+    private Player parseLine(String line, int year) {
         String[] parts = line.split("\\s*\\|\\s*");
         if (parts.length != 5) {
             throw new IllegalArgumentException("Invalid player line: " + line);
@@ -73,7 +73,7 @@ public class PlayerDao {
                 parts[1],                            // position
                 Integer.parseInt(parts[2]),          // age
                 parts[3],                            // team
-                Integer.parseInt(parts[4])           // year
+                year           // year
         );
     }
 

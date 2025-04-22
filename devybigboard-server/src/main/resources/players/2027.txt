@@ -5,3 +5,7 @@ Cam Coleman | WR | 18 | Auburn | 2027
 Dylan Raiola | QB | 18 | Nebraska | 2027
 Julian Sayin | QB | 18 | Ohio State | 2027
 Ryan Wingo | WR | 19 | Texas | 2027
+Dylan Raiola | QB | 18 | Nebraska | 2027
+Demond Williams Jr. | QB | 19 | Washington | 2027
+CJ Bailey | QB | 18 | NC State | 2027
+Tyler Cherry | QB | 18 | Duke | 2027

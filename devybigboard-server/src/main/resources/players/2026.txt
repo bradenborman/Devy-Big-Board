@@ -6,6 +6,7 @@ Drew Allar | QB | 19 | Penn State | 2026
 CJ Baxter | RB | 18 | Texas | 2026
 Justice Haynes | RB | 19 | Michigan | 2026
 Dante Moore | QB | 20 | Oregon | 2026
+Jeremiyah Love | RB | 19 | Notre Dame | 2025
 Johntay Cook II | WR | 19 | Texas | 2026
 Nyck Harbor | WR | 20 | South Carolina | 2026
 KC Concepcion | WR | 19 | Texas A&M | 2026
@@ -28,3 +29,14 @@ LaNorris Sellers | QB | 19 | South Carolina | 2026
 Taylor Tatum | RB | 18 | Oklahoma | 2027
 Joshisa Trader | WR | 18 | Miami | 2027
 Mark Bowman | TE | 17 | N/A | 2028
+Nic Anderson | WR | 21 | LSU | 2025
+Garrett Nussmeier | QB | 20 | LSU | 2025
+Carson Beck | QB | 21 | Miami | 2025
+Evan Stewart | WR | 20 | Texas | 2025
+Cade Klubnik | QB | 20 | Clemson | 2025
+Antonio Williams | WR | 20 | Clemson | 2025
+Barion Brown | WR | 21 | LSU | 2025
+Jalon Daniels | QB | 21 | Kansas | 2025
+Jaydn Ott | RB | 21 | California | 2025
+Kaytron Allen | RB | 19 | Penn State | 2025
+Luke Lachey | TE | 21 | Iowa | 2025
