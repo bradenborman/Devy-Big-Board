@@ -22,10 +22,10 @@ interface BigBoardProps {
 const BigBoard: React.FC<BigBoardProps> = ({ teams, rounds, players, removeDraftedPlayer, clearBoard, exportDraft }) => {
     return (
         <div className='big-board-wrapper'>
-            <div className='menu'>
+            {/* <div className='menu'>
                 <button onClick={clearBoard} className='menu-item'>Clear Board</button>
                 <button onClick={exportDraft} className='menu-item'>Export Draft</button>
-            </div>
+            </div> */}
             <div
                 className="big-board"
                 style={{ '--teams': teams, '--rounds': rounds } as React.CSSProperties}

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import BigBoard, { Player } from './bigBoard';
 import PlayerList from './playerList';
 import BoardParameters from './boardParametes';
+import ContextMenu from './ContextMenu';
+import AddPlayerModal from './AddPlayerModal';
 // import { initialPlayerPool } from '../data/players';
 
 const MainComponent: React.FC = () => {
@@ -13,8 +15,26 @@ const MainComponent: React.FC = () => {
     const [playerPool, setPlayerPool] = useState<Player[]>([]);
 
 
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
+
+    const [showAddPlayerModal, setShowAddPlayerModal] = useState(false);
+
+
+    const handleContextMenu = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setMenuPosition({ x: e.pageX, y: e.pageY });
+        setMenuVisible(true);
+    };
+
+
     //Todo - remove for final
     // useEffect(() => { createGrid() }, [])
+
+
+    const addNewPlayer = (player: Player) => {
+        setPlayerPool((prev) => [player, ...prev]);
+    };
 
 
     const setDefaultPlayerPool = () => {
@@ -62,6 +82,30 @@ const MainComponent: React.FC = () => {
             return updatedPlayers;
         });
     };
+
+    const removeLastPick = () => {
+        setPlayers((prevPlayers) => {
+            const updatedPlayers = prevPlayers.map((rowArr) => [...rowArr]);
+
+            for (let r = rounds - 1; r >= 0; r--) {
+                for (let c = teams - 1; c >= 0; c--) {
+                    if (updatedPlayers[r][c]) {
+                        const removedPlayer = updatedPlayers[r][c];
+                        updatedPlayers[r][c] = null;
+
+                        if (removedPlayer) {
+                            setPlayerPool((prevPool) => [...prevPool, removedPlayer]);
+                        }
+
+                        return updatedPlayers;
+                    }
+                }
+            }
+
+            return prevPlayers;
+        });
+    };
+
 
     const clearBoard = () => {
         setDefaultPlayerPool();
@@ -111,25 +155,28 @@ const MainComponent: React.FC = () => {
         }
     };
 
-    const downloadText = () => {
-        let draftText = "Rookie Fantasy Football Draft Order:\n\n";
+    // const downloadText = () => {
+    //     let draftText = "Rookie Fantasy Football Draft Order:\n\n";
 
-        players.forEach((row, rIndex) => {
-            row.forEach((player, cIndex) => {
-                const round = rIndex + 1;
-                const pick = cIndex + 1;
-                draftText += `${round}.${pick.toString().padStart(2, '0')} ${player ? player.name : '---'}\n`;
-            });
-        });
+    //     players.forEach((row, rIndex) => {
+    //         row.forEach((player, cIndex) => {
+    //             const round = rIndex + 1;
+    //             const pick = cIndex + 1;
+    //             draftText += `${round}.${pick.toString().padStart(2, '0')} ${player ? player.name : '---'}\n`;
+    //         });
+    //     });
 
-        const blob = new Blob([draftText], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'rookie_draft_order.txt';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+    //     const blob = new Blob([draftText], { type: 'text/plain' });
+    //     const link = document.createElement('a');
+    //     link.href = URL.createObjectURL(blob);
+    //     link.download = 'rookie_draft_order.txt';
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    // };
+
+    const isBoardPopulated = players.some((row) => row.some((cell) => cell !== null));
+
 
     return (
         <div className={`main-component ${!isGridCreated ? 'center-content' : ''}`}>
@@ -142,8 +189,39 @@ const MainComponent: React.FC = () => {
                     createGrid={createGrid}
                 />
             ) : (
-                <div className="board-container">
-                    <PlayerList playerPool={playerPool} addPlayerToNextOpenSpot={addPlayerToNextOpenSpot} />
+                <div className="board-container" onContextMenu={handleContextMenu}>
+                    <ContextMenu
+                        visible={menuVisible}
+                        position={menuPosition}
+                        onClose={() => setMenuVisible(false)}
+                        onClearBoard={() => {
+                            clearBoard();
+                            setMenuVisible(false);
+                        }}
+                        onExportDraft={() => {
+                            exportDraft();
+                            setMenuVisible(false);
+                        }}
+                        onLastPlayerRemove={() => {
+                            removeLastPick();
+                            setMenuVisible(false);
+                        }}
+                        onAddPlayerClick={() => {
+                            setMenuVisible(false);
+                            setShowAddPlayerModal(true);
+                        }}
+
+                        isBoardPopulated={isBoardPopulated}
+                    />
+                    <AddPlayerModal
+                        visible={showAddPlayerModal}
+                        onClose={() => setShowAddPlayerModal(false)}
+                        onSubmit={addNewPlayer}
+                    />
+                    <PlayerList
+                        playerPool={playerPool}
+                        addPlayerToNextOpenSpot={addPlayerToNextOpenSpot}
+                    />
                     <BigBoard
                         rounds={rounds}
                         teams={teams}
