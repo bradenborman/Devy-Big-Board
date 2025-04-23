@@ -17,7 +17,13 @@ const Toast: React.FC<ToastProps> = ({ message, duration = 5000 }) => {
         return () => clearTimeout(timer);
     }, [duration]);
 
-    return visible ? <div className="toast">{message}</div> : null;
+    const fadeOutDelay = `${(duration - 500) / 1000}s`;
+
+    return visible ? (
+        <div className="toast" style={{ '--fade-out-delay': fadeOutDelay } as React.CSSProperties}>
+            {message}
+        </div>
+    ) : null;
 };
 
 export default Toast;

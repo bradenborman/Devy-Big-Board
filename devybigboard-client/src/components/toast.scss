@@ -1,4 +1,6 @@
 .toast {
+    --fade-out-delay: 4.5s; // default fallback
+
     position: fixed;
     top: -100px;
     left: 50%;
@@ -7,17 +9,19 @@
     color: white;
     padding: 12px 24px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 16px;
     z-index: 1000;
     opacity: 0;
-    animation: slideDown 0.5s forwards, fadeOut 0.5s ease-in-out 4.5s forwards;
+    animation:
+        slideDown 0.5s forwards,
+        fadeOut 0.5s ease-in-out var(--fade-out-delay) forwards;
 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 @keyframes slideDown {
     to {
-        top: 20px;
+        top: 50px;
         opacity: 1;
     }
 }
