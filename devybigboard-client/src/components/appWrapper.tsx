@@ -9,15 +9,19 @@ const AppWrapper: React.FC = () => {
         ReactGA.initialize('G-03DV8L1WEX');
     }, []);
 
-    usePageTracking();
-
     return (
         <BrowserRouter>
+            <PageTracker />
             <div className='app-wrapper'>
                 <MainComponent />
             </div>
         </BrowserRouter>
     );
+};
+
+const PageTracker: React.FC = () => {
+    usePageTracking();
+    return null;
 };
 
 export default AppWrapper;

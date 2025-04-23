@@ -31,7 +31,6 @@ public class PlayerDao {
 
             for (Resource resource : resources) {
                 String filename = resource.getFilename();
-                logger.info("Reading in {}", filename);
                 if (!filename.matches("\\d{4}\\.txt")) continue;
 
                 int fileYear = Integer.parseInt(filename.substring(0, 4));
