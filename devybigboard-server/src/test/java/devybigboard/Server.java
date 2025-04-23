@@ -7,7 +7,7 @@ public class Server extends DevyBigBoardApplication {
     public static void main(String[] args) {
         new Server().configure(new SpringApplicationBuilder())
                 .initializers()
-                .profiles("local")
+                .profiles("local", "secrets")
                 .run(args);
     }
 

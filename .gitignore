@@ -9,6 +9,7 @@ build/
 
 **/resources/static
 **/resources/templates
+**application-secrets.yml
 
 ### STS ###
 .apt_generated
