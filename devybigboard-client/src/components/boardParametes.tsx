@@ -37,7 +37,9 @@ const BoardParameters: React.FC<BoardParamsProps> = ({ teams, rounds, handleTeam
             />
             <button onClick={createGrid}>Create Big Board</button>
 
-            <div className='kudos'>Created By: <i>Braden Borman</i></div>
+            <div className="kudos">
+                Created By: <a href="https://x.com/middle_Borman" target="_blank" rel="noopener noreferrer"><i>Braden Borman</i></a>
+            </div>
         </div>
     );
 };
