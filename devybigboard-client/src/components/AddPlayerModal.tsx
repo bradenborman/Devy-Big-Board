@@ -22,8 +22,7 @@ const AddPlayerModal: React.FC<AddPlayerModalProps> = ({ visible, onClose, onSub
             name,
             position,
             team,
-            year,
-            age: 0,
+            year
         });
 
         setName('');

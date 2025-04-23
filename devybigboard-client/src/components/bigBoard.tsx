@@ -5,7 +5,6 @@ import Toast from './Toast';
 export interface Player {
     name: string;
     position: string;
-    age: number;
     team: string;
     year: number;
 }

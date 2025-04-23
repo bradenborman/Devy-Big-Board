@@ -1,7 +1,7 @@
 package devybigboard.controllers;
 
 import devybigboard.dao.PlayerDao;
-import devybigboard.models.Player;
+import devybigboard.models.PlayerWithAdp;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +19,7 @@ public class ApiController {
     }
 
     @GetMapping("/players")
-    public List<Player> allPlayers() {
+    public List<PlayerWithAdp> allPlayers() {
         return playerDao.getAllPlayers();
     }
 
