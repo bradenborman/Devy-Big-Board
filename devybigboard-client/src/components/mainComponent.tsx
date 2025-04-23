@@ -15,7 +15,7 @@ const MainComponent: React.FC = () => {
     const params = new URLSearchParams(location.search);
     const teamsFromURL = Number(params.get('teams'));
     const roundsFromURL = Number(params.get('rounds'));
-    const hasValidParams = teamsFromURL > 0 && roundsFromURL > 0;
+    const hasValidParams = (teamsFromURL > 0 && teamsFromURL <= 16) && (roundsFromURL > 0 && roundsFromURL <= 15);
 
 
     const [teams, setTeams] = useState<number>(teamsFromURL || 12);
