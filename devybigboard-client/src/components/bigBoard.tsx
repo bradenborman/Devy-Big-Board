@@ -1,5 +1,6 @@
 import React from 'react';
 import DraftSpot from './draftSpot';
+import Toast from './Toast';
 
 export interface Player {
     name: string;
@@ -30,6 +31,7 @@ const BigBoard: React.FC<BigBoardProps> = ({
 
     return (
         <div className="big-board-wrapper">
+            <Toast message="Right click menu for more options" />
             <div
                 className="big-board"
                 style={{ '--teams': teams, '--rounds': rounds } as React.CSSProperties}
