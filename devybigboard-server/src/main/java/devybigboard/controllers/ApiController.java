@@ -3,6 +3,7 @@ package devybigboard.controllers;
 import devybigboard.dao.PlayerDao;
 import devybigboard.models.Player;
 import devybigboard.models.PlayerWithAdp;
+import devybigboard.services.DraftService;
 import devybigboard.services.PlayerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +15,16 @@ import java.util.List;
 public class ApiController {
 
     private final PlayerService playerService;
+    private final DraftService draftService;
 
-    public ApiController(PlayerService playerService) {
+    public ApiController(PlayerService playerService, DraftService draftService) {
         this.playerService = playerService;
+        this.draftService = draftService;
+    }
+
+    @GetMapping("/draft/count")
+    public Integer draftsCompletedCount() {
+        return draftService.draftsCompletedCount();
     }
 
     @GetMapping("/players")
