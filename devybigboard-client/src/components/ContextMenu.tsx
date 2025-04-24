@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './contextMenu.scss';
 
 interface MenuPosition {
@@ -31,6 +33,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
     onAddTierBreak,
     onRemoveLastTierBreak
 }) => {
+    const navigate = useNavigate();
     const menuRef = useRef<HTMLUListElement>(null);
 
     useEffect(() => {
@@ -88,6 +91,13 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
                     <span className="menu-text">Undo Last Tier Break</span>
                 </button>
             </li>
+            <li className="menu-separator" />
+            <li className="menu-item">
+                <button type="button" className="menu-btn" onClick={() => navigate('/')}>
+                    <span className="menu-text">New Draft</span>
+                </button>
+            </li>
+
         </ul>
     );
 };
