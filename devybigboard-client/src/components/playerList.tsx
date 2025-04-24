@@ -74,7 +74,8 @@ const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpen
                     filteredPlayers.map((player, index) => (
                         <li key={index} className="player-entry">
                             <span className="player-position">{player.position}</span>
-                            <span className="player-name">{player.name}</span>
+                            <span className="player-name"> {player.name}<span className="player-adp">{player.adp.toFixed(1)}</span>
+                            </span>
                             <button className="add-btn" onClick={() => addPlayerToNextOpenSpot(player)}>
                                 +
                             </button>
@@ -82,6 +83,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpen
                     ))
                 )}
             </ul>
+
         </div>
     );
 };

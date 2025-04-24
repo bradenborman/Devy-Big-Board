@@ -29,21 +29,22 @@ public class PlayerDao {
     );
 
     public List<PlayerWithAdp> getAllPlayers() {
-                String sql = """
-            SELECT p.name, p.position, p.team, p.draftyear,
-                   COALESCE((
-                       SELECT AVG(pick_number)
-                       FROM draft_picks dp
-                       WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
-                   ), -1) AS adp
-            FROM players p
-            ORDER BY 
-                   COALESCE((
-                       SELECT AVG(pick_number)
-                       FROM draft_picks dp
-                       WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
-                   ), 1e9)
-            """;
+        String sql = """
+    SELECT p.name, p.position, p.team, p.draftyear,
+           COALESCE((
+               SELECT AVG(pick_number)
+               FROM draft_picks dp
+               WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
+           ), 999) AS adp
+    FROM players p
+    ORDER BY 
+           COALESCE((
+               SELECT AVG(pick_number)
+               FROM draft_picks dp
+               WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
+           ), 999)
+    """;
+
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> new PlayerWithAdp(
                         rs.getString("name"),
