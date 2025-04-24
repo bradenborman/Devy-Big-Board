@@ -64,6 +64,18 @@ const MainComponent: React.FC = () => {
     }, [players]);
 
 
+    const resetDraft = () => {
+        setTeams(12);
+        setRounds(3);
+        setPlayers([]);
+        setIsGridCreated(false);
+        setPlayerPool([]);
+        setTierBreaks([]);
+        setMenuVisible(false);
+        setShowAddPlayerModal(false);
+    };
+
+
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
         setMenuPosition({ x: e.pageX, y: e.pageY });
@@ -238,6 +250,7 @@ const MainComponent: React.FC = () => {
                         onClose={() => setMenuVisible(false)}
                         onAddTierBreak={addTierBreakAfterLastPick}
                         onRemoveLastTierBreak={removeLastTierBreak}
+                        onResetDraft={resetDraft}
                         onClearBoard={() => {
                             clearBoard();
                             setMenuVisible(false);

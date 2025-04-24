@@ -19,6 +19,7 @@ interface ContextMenuProps {
     onAddPlayerClick: () => void;
     onAddTierBreak: () => void;
     onRemoveLastTierBreak: () => void;
+    onResetDraft: () => void;
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = ({
@@ -31,7 +32,8 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
     isBoardPopulated,
     onAddPlayerClick,
     onAddTierBreak,
-    onRemoveLastTierBreak
+    onRemoveLastTierBreak,
+    onResetDraft
 }) => {
     const navigate = useNavigate();
     const menuRef = useRef<HTMLUListElement>(null);
@@ -93,11 +95,17 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
             </li>
             <li className="menu-separator" />
             <li className="menu-item">
-                <button type="button" className="menu-btn" onClick={() => navigate('/')}>
-                    <span className="menu-text">New Draft</span>
+                <button
+                    type="button"
+                    className="menu-btn"
+                    onClick={() => {
+                        resetDraft();
+                        navigate('/');
+                    }}
+                >
+                    <span className="menu-text">New Draft Settings</span>
                 </button>
             </li>
-
         </ul>
     );
 };
