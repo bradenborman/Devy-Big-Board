@@ -1,26 +1,33 @@
 package devybigboard.controllers;
 
 import devybigboard.dao.PlayerDao;
+import devybigboard.models.Player;
 import devybigboard.models.PlayerWithAdp;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import devybigboard.services.PlayerService;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class ApiController {
 
-    private final PlayerDao playerDao;
+    private final PlayerService playerService;
 
-    public ApiController(PlayerDao playerDao) {
-        this.playerDao = playerDao;
+    public ApiController(PlayerService playerService) {
+        this.playerService = playerService;
     }
 
     @GetMapping("/players")
     public List<PlayerWithAdp> allPlayers() {
-        return playerDao.getAllPlayers();
+        return playerService.getAllPlayers();
     }
+
+    @PostMapping("/draft/complete")
+    public void draftComplete(@RequestBody List<Player> draftedPlayers) {
+       playerService.saveDraftAdpResults(draftedPlayers);
+    }
+
 
 }

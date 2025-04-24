@@ -41,6 +41,29 @@ const MainComponent: React.FC = () => {
     }, [hasValidParams, roundsFromURL, teamsFromURL]);
 
 
+    /*
+    Logic that makes a call to update ADP when its filled out 
+    */
+    useEffect(() => {
+        const allFilled = players.length > 0 && players.every(row => row.every(cell => cell !== null));
+
+        if (allFilled) {
+            const flatPlayers = players.flat().filter((p): p is Player => p !== null);
+
+            fetch('/api/draft/complete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(flatPlayers),
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error("Failed to submit draft.");
+                    console.log("Draft completed and submitted.");
+                })
+                .catch(err => console.error("Error submitting draft:", err));
+        }
+    }, [players]);
+
+
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
         setMenuPosition({ x: e.pageX, y: e.pageY });

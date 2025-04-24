@@ -4,8 +4,11 @@ import devybigboard.models.Player;
 import devybigboard.models.PlayerWithAdp;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,15 +29,21 @@ public class PlayerDao {
     );
 
     public List<PlayerWithAdp> getAllPlayers() {
-        String sql = """
-        SELECT p.name, p.position, p.team, p.draftyear,
-               COALESCE((
-                   SELECT AVG(pick_number)
-                   FROM draft_picks dp
-                   WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
-               ), -1) AS adp
-        FROM players p
-    """;
+                String sql = """
+            SELECT p.name, p.position, p.team, p.draftyear,
+                   COALESCE((
+                       SELECT AVG(pick_number)
+                       FROM draft_picks dp
+                       WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
+                   ), -1) AS adp
+            FROM players p
+            ORDER BY 
+                   COALESCE((
+                       SELECT AVG(pick_number)
+                       FROM draft_picks dp
+                       WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
+                   ), 1e9)
+            """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> new PlayerWithAdp(
                         rs.getString("name"),
@@ -42,9 +51,38 @@ public class PlayerDao {
                         rs.getString("team"),
                         rs.getInt("draftyear"),
                         rs.getDouble("adp")
-                )).stream()
-                .sorted(Comparator.comparingDouble(PlayerWithAdp::adp)) // sort by ADP
-                .toList();
+                ));
     }
+
+    public void insertDraftPickResult(long draftId, PlayerWithAdp playerWithAdp) {
+        String sql = """
+        INSERT INTO draft_picks (draft_id, pick_number, name, position, team)
+        VALUES (?, ?, ?, ?, ?)
+    """;
+
+        jdbcTemplate.update(sql,
+                draftId,
+                playerWithAdp.adp(),
+                playerWithAdp.name(),
+                playerWithAdp.position(),
+                playerWithAdp.team()
+        );
+    }
+
+
+    public long createDraft() {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(
+                    "INSERT INTO drafts DEFAULT VALUES",
+                    new String[] { "id" }
+            );
+            return ps;
+        }, keyHolder);
+
+        return keyHolder.getKey().longValue();
+    }
+
 
 }

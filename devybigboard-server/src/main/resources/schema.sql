@@ -9,9 +9,9 @@ CREATE TABLE IF NOT EXISTS players (
 
 CREATE TABLE IF NOT EXISTS drafts (
     id IDENTITY PRIMARY KEY,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    type VARCHAR(50) DEFAULT 'offline'  -- 'offline' or 'online'
 );
-
 
 CREATE TABLE IF NOT EXISTS draft_picks (
     draft_id BIGINT NOT NULL,
