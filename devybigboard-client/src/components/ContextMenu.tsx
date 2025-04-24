@@ -99,7 +99,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
                     type="button"
                     className="menu-btn"
                     onClick={() => {
-                        resetDraft();
+                        onResetDraft();
                         navigate('/');
                     }}
                 >
