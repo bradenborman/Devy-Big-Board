@@ -13,7 +13,7 @@ const AddPlayerModal: React.FC<AddPlayerModalProps> = ({ visible, onClose, onSub
     const [position, setPosition] = useState('');
     const [team, setTeam] = useState('');
     const currentYear = new Date().getFullYear();
-    const [year, setYear] = useState<number>(currentYear);
+    const [draftyear, setDraftyear] = useState<number>(currentYear);
 
     const handleSubmit = () => {
         if (!name || !position || !team) return;
@@ -22,13 +22,13 @@ const AddPlayerModal: React.FC<AddPlayerModalProps> = ({ visible, onClose, onSub
             name,
             position,
             team,
-            year
+            draftyear
         });
 
         setName('');
         setPosition('');
         setTeam('');
-        setYear(currentYear);
+        setDraftyear(currentYear);
         onClose();
     };
 
@@ -51,14 +51,14 @@ const AddPlayerModal: React.FC<AddPlayerModalProps> = ({ visible, onClose, onSub
                 <input placeholder="Team" value={team} onChange={(e) => setTeam(e.target.value)} />
 
                 <label className="slider-label">
-                    Year: <strong>{year}</strong>
+                    Year: <strong>{draftyear}</strong>
                 </label>
                 <input
                     type="range"
                     min={currentYear}
                     max={currentYear + 5}
-                    value={year}
-                    onChange={(e) => setYear(Number(e.target.value))}
+                    value={draftyear}
+                    onChange={(e) => setDraftyear(Number(e.target.value))}
                 />
 
                 <button onClick={handleSubmit}>Add</button>

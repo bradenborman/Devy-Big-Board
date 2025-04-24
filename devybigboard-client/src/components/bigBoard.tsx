@@ -6,7 +6,7 @@ export interface Player {
     name: string;
     position: string;
     team: string;
-    year: number;
+    draftyear: number;
 }
 
 interface BigBoardProps {

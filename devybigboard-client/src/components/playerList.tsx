@@ -33,7 +33,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpen
         const matchesPosition =
             activePositionFilters.length === 0 || activePositionFilters.includes(player.position);
         const matchesYear =
-            activeYearFilters.length === 0 || activeYearFilters.includes(player.year);
+            activeYearFilters.length === 0 || activeYearFilters.includes(player.draftyear);
         return matchesPosition && matchesYear;
     });
 
