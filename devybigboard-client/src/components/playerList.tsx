@@ -47,7 +47,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpen
         <div className={`player-list ${playerListOpen ? 'open' : 'collapsed'}`}>
             <div className="collapse-wrapper" onClick={() => setPlayerListOpen(!playerListOpen)}>
                 <span>
-                    {playerListOpen ? 'Show Draft Board' : 'Show Player List'}
+                    {playerListOpen ? 'Full Draft Board' : 'Show Player List'}
                 </span>
                 <FontAwesomeIcon icon={playerListOpen ? faTableCellsLarge : faUsers} size="lg" />
             </div>
@@ -81,23 +81,24 @@ const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpen
                     </button>
                 ))}
             </div>
-            <ul>
-                {filteredPlayers.length === 0 ? (
-                    <li className="empty-list">No players left</li>
-                ) : (
-                    filteredPlayers.map((player, index) => (
-                        <li key={index} className="player-entry">
-                            <span className="player-position">{player.position}</span>
-                            <span className="player-name"> {player.name}<span className="player-adp">{player.adp.toFixed(1)}</span>
-                            </span>
-                            <button className="add-btn" onClick={() => addPlayerToNextOpenSpot(player)}>
-                                +
-                            </button>
-                        </li>
-                    ))
-                )}
-            </ul>
-
+            <div className='scroll-list'>
+                <ul>
+                    {filteredPlayers.length === 0 ? (
+                        <li className="empty-list">No players left</li>
+                    ) : (
+                        filteredPlayers.map((player, index) => (
+                            <li key={index} className="player-entry">
+                                <span className="player-position">{player.position}</span>
+                                <span className="player-name"> {player.name}<span className="player-adp">{player.adp.toFixed(1)}</span>
+                                </span>
+                                <button className="add-btn" onClick={() => addPlayerToNextOpenSpot(player)}>
+                                    +
+                                </button>
+                            </li>
+                        ))
+                    )}
+                </ul>
+            </div>
         </div>
     );
 };

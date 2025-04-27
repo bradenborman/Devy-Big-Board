@@ -45,7 +45,7 @@ const BigBoard: React.FC<BigBoardProps> = ({
     return (
         <div className="big-board-wrapper">
             {/* <Toast message="Right click menu for more options" /> */}
-            <div className="big-board-header">
+            {/* <div className="big-board-header">
                 <div className="help-icon-wrapper" tabIndex={0}>
                     <span className="help-label">
                         <FontAwesomeIcon icon={faCircleQuestion} style={{ marginRight: '6px' }} />
@@ -58,7 +58,7 @@ const BigBoard: React.FC<BigBoardProps> = ({
                         <p>📨 Email: <a href="mailto:bradenborman00@gmail.com">Braden Borman</a> for more help</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div
                 className="big-board"
@@ -79,14 +79,14 @@ const BigBoard: React.FC<BigBoardProps> = ({
                     </div>
                 ))}
             </div>
-
+{/* 
             <div className="big-board-footer">
                 <p>
                     {completedDraftCount >= 0
                         ? `ADP powered by ${completedDraftCount} draft${completedDraftCount !== 1 ? 's' : ''}!`
                         : 'Loading ADP data...'}
                 </p>
-            </div>
+            </div> */}
         </div>
     );
 };

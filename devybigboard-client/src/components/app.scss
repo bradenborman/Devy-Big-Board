@@ -8,6 +8,7 @@
     font-family: "Lato", serif;
 }
 
+
 .app-wrapper {
     display: flex;
     height: 100vh;
@@ -110,5 +111,20 @@
 
 
 
+    }
+}
+
+@media (max-width: 768px) {
+    .board-parameters {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        height: 100%;
+        border-radius: 0px;
+        box-shadow: none;
+        padding: 30px 20px;
+    }
+
+    .app-wrapper {
+        flex-direction: column;
     }
 }
