@@ -5,17 +5,43 @@
     align-items: flex-start;
 
     .player-list {
-        width: 295px;
+        transition: width 0.3s ease, padding 0.3s ease;
+        overflow: hidden; // important
         flex-shrink: 0;
         border: 1px solid #ccc;
         background: #fff;
         padding: 15px;
-        border-radius: 8px;
         height: 100%;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        overflow-y: scroll;
         max-height: 100vh;
         user-select: none;
+
+        &.collapsed {
+            width: 40px;
+            padding: 10px 5px;
+            overflow-x: hidden;
+            overflow-y: hidden;
+
+            .filters,
+            ul {
+                display: none;
+            }
+        }
+
+        &.open {
+            width: 295px;
+            padding: 15px;
+        }
+
+        .collapse-wrapper {
+            display: none;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0px 5px 5px 0px;
+            cursor: pointer;
+            gap: 5px;
+        }
+
 
         .filters {
             display: flex;
@@ -125,6 +151,7 @@
             text-transform: uppercase;
             color: #666;
         }
+
     }
 
     .big-board-wrapper {
@@ -132,6 +159,7 @@
         height: 100%;
         max-width: 100%;
         overflow-x: auto;
+
         .menu {
             width: 100%;
             display: flex;
@@ -374,5 +402,50 @@
 
     &::-webkit-scrollbar-corner {
         background: transparent;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .board-container {
+        flex-direction: column;
+
+        .player-list {
+            width: 100% !important;
+            max-width: 100%;
+            height: auto;
+
+            &.collapsed {
+                width: 100% !important;
+            }
+
+            &:not(.collapsed) {
+                .collapse-wrapper {
+                    border-bottom: 2px solid #ddd;
+                }
+            }
+
+            .collapse-wrapper {
+                display: flex;
+            }
+
+
+            .filters {
+                padding: 10px 0;
+                margin-bottom: 0px;
+            }
+
+        }
+
+        .big-board-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+
+        .big-board-header,
+        .big-board-footer {
+            display: none;
+        }
     }
 }

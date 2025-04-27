@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Player } from './bigBoard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers, faTableCellsLarge } from '@fortawesome/free-solid-svg-icons';
+
 
 interface PlayerListProps {
     playerPool: Player[];
@@ -10,8 +13,11 @@ const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpen
     const [activePositionFilters, setActivePositionFilters] = useState<string[]>([]);
     const [activeYearFilters, setActiveYearFilters] = useState<number[]>([]);
 
+    const [playerListOpen, setPlayerListOpen] = useState<boolean>(true);
+
     const currentYear = new Date().getFullYear();
     const yearRange = Array.from({ length: 4 }, (_, i) => currentYear + i);
+
 
     const togglePositionFilter = (position: string) => {
         if (position === 'ALL') {
@@ -38,7 +44,15 @@ const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpen
     });
 
     return (
-        <div className="player-list">
+        <div className={`player-list ${playerListOpen ? 'open' : 'collapsed'}`}>
+            <div className="collapse-wrapper" onClick={() => setPlayerListOpen(!playerListOpen)}>
+                <span>
+                    {playerListOpen ? 'Show Draft Board' : 'Show Player List'}
+                </span>
+                <FontAwesomeIcon icon={playerListOpen ? faTableCellsLarge : faUsers} size="lg" />
+            </div>
+
+
             <div className="filters">
                 <button
                     className={`filter-btn ${activePositionFilters.length === 0 ? 'active' : ''}`}
