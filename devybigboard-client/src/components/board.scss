@@ -5,7 +5,6 @@
     align-items: flex-start;
 
     .player-list {
-        transition: width 0.3s ease, padding 0.3s ease;
         overflow-y: auto;
         overflow-x: hidden;
         flex-shrink: 0;
@@ -16,23 +15,6 @@
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         max-height: 100vh;
         user-select: none;
-
-        &.collapsed {
-            width: 40px;
-            padding: 10px 5px;
-            overflow-x: hidden;
-            overflow-y: hidden;
-
-            .filters,
-            ul {
-                display: none;
-            }
-        }
-
-        &.open {
-            width: 295px;
-            padding: 15px;
-        }
 
         .filters {
             display: flex;
@@ -108,7 +90,6 @@
                 margin-left: 8px;
                 white-space: nowrap;
             }
-
         }
 
         .add-btn {
@@ -142,8 +123,8 @@
             text-transform: uppercase;
             color: #666;
         }
-
     }
+
 
     .big-board-wrapper {
         width: 100%;

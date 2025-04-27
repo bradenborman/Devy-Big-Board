@@ -8,7 +8,7 @@ interface PlayerListProps {
 }
 
 
-const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpenSpot, playerListOpen}) => {
+const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpenSpot, playerListOpen }) => {
     const [activePositionFilters, setActivePositionFilters] = useState<string[]>([]);
     const [activeYearFilters, setActiveYearFilters] = useState<number[]>([]);
     const currentYear = new Date().getFullYear();
@@ -39,8 +39,13 @@ const PlayerList: React.FC<PlayerListProps> = ({ playerPool, addPlayerToNextOpen
         return matchesPosition && matchesYear;
     });
 
+
+    if (!playerListOpen) {
+        return null;
+    }
+
     return (
-        <div className={`player-list ${playerListOpen ? 'open' : 'collapsed'}`}>
+        <div className="player-list">
             <div className="filters">
                 <button
                     className={`filter-btn ${activePositionFilters.length === 0 ? 'active' : ''}`}
