@@ -4,6 +4,7 @@ import devybigboard.models.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -23,8 +24,10 @@ public class DataConfig {
     private static final Logger logger = LoggerFactory.getLogger(DataConfig.class);
 
     @Bean
+    @ConditionalOnProperty(name = "data.initial-load", havingValue = "true")
     public CommandLineRunner commandLineRunner(JdbcTemplate jdbcTemplate) {
         return args -> {
+            logger.info("Loading all players into db");
             List<Player> allPlayers = new ArrayList<>();
             int currentYear = Year.now().getValue();
 
