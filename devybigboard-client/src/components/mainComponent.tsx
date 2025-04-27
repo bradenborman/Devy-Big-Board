@@ -6,6 +6,7 @@ import PlayerList from './playerList';
 import BoardParameters from './boardParametes';
 import ContextMenu from './ContextMenu';
 import AddPlayerModal from './AddPlayerModal';
+import BubbleMenu from './BubbleMenu';
 
 const MainComponent: React.FC = () => {
 
@@ -268,6 +269,19 @@ const MainComponent: React.FC = () => {
                         }}
                         isBoardPopulated={isBoardPopulated}
                     />
+                    <BubbleMenu
+                        onClearBoard={clearBoard}
+                        onExportDraft={exportDraft}
+                        onLastPlayerRemove={removeLastPick}
+                        onAddPlayerClick={() => {
+                            setShowAddPlayerModal(true);
+                        }}
+                        onAddTierBreak={addTierBreakAfterLastPick}
+                        onRemoveLastTierBreak={removeLastTierBreak}
+                        onResetDraft={resetDraft}
+                        isBoardPopulated={isBoardPopulated}
+                    />
+
                     <AddPlayerModal
                         visible={showAddPlayerModal}
                         onClose={() => setShowAddPlayerModal(false)}
