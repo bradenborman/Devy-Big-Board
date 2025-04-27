@@ -34,16 +34,6 @@
             padding: 15px;
         }
 
-        .collapse-wrapper {
-            display: none;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 0px 5px 8px 0px;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-
         .filters {
             display: flex;
             justify-content: space-between;
@@ -418,17 +408,6 @@
             &.collapsed {
                 width: 100% !important;
             }
-
-            &:not(.collapsed) {
-                .collapse-wrapper {
-                    border-bottom: 2px solid #ddd;
-                }
-            }
-
-            .collapse-wrapper {
-                display: flex;
-            }
-
 
             .filters {
                 padding: 10px 0;

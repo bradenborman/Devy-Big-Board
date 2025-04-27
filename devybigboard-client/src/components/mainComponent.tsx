@@ -28,6 +28,8 @@ const MainComponent: React.FC = () => {
     );
     const [isGridCreated, setIsGridCreated] = useState<boolean>(hasValidParams);
 
+    const [playerListOpen, setPlayerListOpen] = useState<boolean>(true);
+
     const [playerPool, setPlayerPool] = useState<Player[]>([]);
     const [tierBreaks, setTierBreaks] = useState<{ row: number; col: number }[]>([]);
 
@@ -280,7 +282,10 @@ const MainComponent: React.FC = () => {
                         onRemoveLastTierBreak={removeLastTierBreak}
                         onResetDraft={resetDraft}
                         isBoardPopulated={isBoardPopulated}
+                        playerListOpen={playerListOpen}
+                        setPlayerListOpen={setPlayerListOpen}
                     />
+
 
                     <AddPlayerModal
                         visible={showAddPlayerModal}
@@ -290,7 +295,9 @@ const MainComponent: React.FC = () => {
                     <PlayerList
                         playerPool={playerPool}
                         addPlayerToNextOpenSpot={addPlayerToNextOpenSpot}
+                        playerListOpen={playerListOpen}
                     />
+
                     <BigBoard
                         rounds={rounds}
                         teams={teams}

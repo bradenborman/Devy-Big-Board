@@ -12,6 +12,8 @@ interface BubbleMenuProps {
     onRemoveLastTierBreak: () => void;
     onResetDraft: () => void;
     isBoardPopulated: boolean;
+    playerListOpen: boolean;
+    setPlayerListOpen: (open: boolean) => void;
 }
 
 const BubbleMenu: React.FC<BubbleMenuProps> = ({
@@ -22,7 +24,9 @@ const BubbleMenu: React.FC<BubbleMenuProps> = ({
     onAddTierBreak,
     onRemoveLastTierBreak,
     onResetDraft,
-    isBoardPopulated
+    isBoardPopulated,
+    playerListOpen,
+    setPlayerListOpen
 }) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -50,6 +54,9 @@ const BubbleMenu: React.FC<BubbleMenuProps> = ({
                         navigate('/');
                     }}>
                         New Draft
+                    </button>
+                    <button onClick={() => setPlayerListOpen(!playerListOpen)}>
+                        {playerListOpen ? "Hide Player List" : "Show Player List"}
                     </button>
                 </div>
             )}
