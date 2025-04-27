@@ -76,7 +76,7 @@ public class PlayerDao {
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO drafts DEFAULT VALUES",
+                    "INSERT INTO drafts (type) VALUES ('offline')",
                     new String[] { "id" }
             );
             return ps;
@@ -84,6 +84,7 @@ public class PlayerDao {
 
         return keyHolder.getKey().longValue();
     }
+
 
 
 }

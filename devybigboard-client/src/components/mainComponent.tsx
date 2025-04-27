@@ -67,8 +67,8 @@ const MainComponent: React.FC = () => {
     const resetDraft = () => {
         setTeams(12);
         setRounds(3);
+        setPlayers([]);
         setIsGridCreated(false);
-        setPlayerPool([]);
         setTierBreaks([]);
         setMenuVisible(false);
         setShowAddPlayerModal(false);

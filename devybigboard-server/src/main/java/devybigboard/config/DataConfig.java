@@ -47,7 +47,12 @@ public class DataConfig {
                 }
             }
 
-            String sql = "MERGE INTO players (name, position, team, draftyear) KEY (name, position, team) VALUES (?, ?, ?, ?)";
+            String sql = """
+                INSERT INTO players (name, position, team, draftyear)
+                VALUES (?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                    draftyear = VALUES(draftyear)
+            """;
 
             for (Player p : allPlayers) {
                 jdbcTemplate.update(sql, p.name(), p.position(), p.team(), p.draftyear());
