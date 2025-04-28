@@ -1,21 +1,28 @@
 package devybigboard.dao;
 
 import devybigboard.models.CompletedDraftResponse;
+import devybigboard.models.LeagueFilter;
 import devybigboard.models.PlayerWithAdp;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 
 @Repository
 public class DraftDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public DraftDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 
     public int draftsCompletedCount() {
@@ -72,6 +79,23 @@ public class DraftDao {
     }
 
 
+    private final RowMapper<LeagueFilter> leagueFilterMapper = (rs, rowNum) -> new LeagueFilter(
+            rs.getLong("id"),
+            rs.getString("league_name"),
+            rs.getTimestamp("created_at").toInstant()
+    );
+
+    public List<LeagueFilter> getAllLeagueFilters() {
+        String sql = """
+        SELECT id, league_name, created_at
+        FROM filters
+        ORDER BY created_at DESC
+    """;
+
+        return jdbcTemplate.query(sql, leagueFilterMapper);
+    }
+
+
     public CompletedDraftResponse draftByUUID(String uuid) {
         String picksSql = """
         SELECT draft_id, pick_number, name, position, team
@@ -111,6 +135,54 @@ public class DraftDao {
                 picks // <= you now pass picks into the CompletedDraftResponse
         ), draftId);
     }
+
+
+    public long createFilter(String leagueName) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String sql = """
+            INSERT INTO filters (league_name)
+            VALUES (:leagueName)
+        """;
+
+        MapSqlParameterSource params = new MapSqlParameterSource().addValue("leagueName", leagueName);
+        namedParameterJdbcTemplate.update(sql, params, keyHolder, new String[]{"id"});
+        return keyHolder.getKey().longValue();
+    }
+
+    public void addPlayerToFilter(long filterId, String playerName, String playerPosition, String playerTeam) {
+        String sql = """
+        INSERT INTO filter_players (filter_id, player_name, player_position, player_team)
+        VALUES (:filterId, :playerName, :playerPosition, :playerTeam)
+    """;
+
+        var params = new MapSqlParameterSource()
+                .addValue("filterId", filterId)
+                .addValue("playerName", playerName)
+                .addValue("playerPosition", playerPosition)
+                .addValue("playerTeam", playerTeam);
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
+
+    public void removePlayerFromFilter(long filterId, String playerName, String playerPosition, String playerTeam) {
+        String sql = """
+        DELETE FROM filter_players
+        WHERE filter_id = :filterId
+          AND player_name = :playerName
+          AND player_position = :playerPosition
+          AND player_team = :playerTeam
+    """;
+
+        var params = new MapSqlParameterSource()
+                .addValue("filterId", filterId)
+                .addValue("playerName", playerName)
+                .addValue("playerPosition", playerPosition)
+                .addValue("playerTeam", playerTeam);
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
+
+
 
 
 }

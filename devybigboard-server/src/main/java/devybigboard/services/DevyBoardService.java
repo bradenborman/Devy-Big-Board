@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class DevyBoardService {
 
@@ -36,7 +37,6 @@ public class DevyBoardService {
         long draftId = draftDao.createDraft();
         playersWithAdp.forEach(playerWithAdp -> draftDao.insertDraftPickResult(draftId, playerWithAdp));
         return draftDao.queryForUUID(draftId);
-
     }
 
     public List<PlayerWithAdp> getAllPlayers() {
@@ -46,4 +46,9 @@ public class DevyBoardService {
     public CompletedDraftResponse getDraftByUuid(String uuid) {
         return draftDao.draftByUUID(uuid);
     }
+
+    public List<PlayerWithAdp> getPlayersExcludingFilter(long filterId) {
+        return playerDao.getPlayersExcludingFilter(filterId);
+    }
+
 }
