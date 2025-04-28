@@ -8,6 +8,8 @@ import ContextMenu from './ContextMenu';
 import AddPlayerModal from './AddPlayerModal';
 import BubbleMenu from './BubbleMenu';
 
+import './maincomponent.scss';
+
 const MainComponent: React.FC = () => {
 
     const navigate = useNavigate();

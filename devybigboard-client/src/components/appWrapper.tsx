@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import MainComponent from './mainComponent';
 import ConsentBanner from './ConsentBanner';
 import CompletedDraft from './CompletedDraft';
+import LeagueFiltersPage from './LeagueFiltersPage';
 
 const AppWrapper: React.FC = () => {
     useEffect(() => {
@@ -23,9 +24,8 @@ const AppWrapper: React.FC = () => {
                         <MainComponent />
                     </div>
                 } />
-                <Route path="/draft/:uuid" element={
-                    <DraftRoute />
-                } />
+                <Route path="/draft/:uuid" element={<DraftRoute />} />
+                <Route path="/league-filters" element={<LeagueFiltersPage />} />
             </Routes>
         </BrowserRouter>
     );
