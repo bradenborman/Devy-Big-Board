@@ -183,6 +183,13 @@ public class DraftDao {
     }
 
 
+    public void deleteFilter(long filterId) {
+        String sql = "DELETE FROM filters WHERE id = :filterId";
 
+        var params = new MapSqlParameterSource()
+                .addValue("filterId", filterId);
+
+        namedParameterJdbcTemplate.update(sql, params);
+    }
 
 }

@@ -71,6 +71,19 @@ const LeagueFiltersPage: React.FC = () => {
             .catch(err => console.error('Failed to create filter:', err));
     };
 
+    const deleteFilter = (filterId: number) => {
+        if (!window.confirm('Are you sure you want to delete this filter?')) return;
+
+        fetch(`/api/filters/${filterId}`, {
+            method: 'DELETE'
+        })
+            .then(() => {
+                setFilters(prev => prev.filter(f => f.id !== filterId));
+            })
+            .catch(err => console.error('Failed to delete filter:', err));
+    };
+
+
     return (
         <div className="league-filters-page">
             {/* Top collapsible panel */}
@@ -130,7 +143,6 @@ const LeagueFiltersPage: React.FC = () => {
                         <thead>
                             <tr>
                                 <th>League Name</th>
-                                <th>Created</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -138,16 +150,23 @@ const LeagueFiltersPage: React.FC = () => {
                             {filters.map(filter => (
                                 <tr key={filter.id}>
                                     <td>{filter.leagueName}</td>
-                                    <td>{new Date(filter.createdAt).toLocaleDateString()}</td>
                                     <td>
                                         <button className="edit-btn" disabled>Edit</button>
-                                        <button className="delete-btn" disabled>Delete</button>
+                                        <button
+                                            className="delete-btn"
+                                            onClick={() => deleteFilter(filter.id)}
+                                        >
+                                            Delete
+                                        </button>
+
+                                        <button className="start-draft-btn" disabled>Start Draft</button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
+
             </div>
 
             <div style={{ marginTop: '20px' }}>

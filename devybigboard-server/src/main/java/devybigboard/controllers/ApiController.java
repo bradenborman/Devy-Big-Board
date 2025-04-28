@@ -73,4 +73,10 @@ public class ApiController {
         return devyBoardService.getPlayersExcludingFilter(filterId);
     }
 
+    @DeleteMapping("/filters/{filterId}")
+    public void deleteFilter(@PathVariable long filterId) {
+        draftService.deleteLeagueFilter(filterId);
+    }
+
+
 }

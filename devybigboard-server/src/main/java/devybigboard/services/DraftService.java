@@ -36,4 +36,8 @@ public class DraftService {
         draftDao.removePlayerFromFilter(filterId, player.name(), player.position(), player.team());
     }
 
+    public void deleteLeagueFilter(long filterId) {
+        draftDao.deleteFilter(filterId);
+    }
+
 }
