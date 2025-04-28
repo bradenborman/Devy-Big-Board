@@ -1,6 +1,8 @@
 package devybigboard.services;
 
+import devybigboard.dao.DraftDao;
 import devybigboard.dao.PlayerDao;
+import devybigboard.models.CompletedDraftResponse;
 import devybigboard.models.Player;
 import devybigboard.models.PlayerWithAdp;
 import org.springframework.stereotype.Service;
@@ -8,15 +10,17 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class PlayerService {
+public class DevyBoardService {
 
+    private final DraftDao draftDao;
     private final PlayerDao playerDao;
 
-    public PlayerService(PlayerDao playerDao) {
+    public DevyBoardService(DraftDao draftDao, PlayerDao playerDao) {
+        this.draftDao = draftDao;
         this.playerDao = playerDao;
     }
 
-    public void saveDraftAdpResults(List<Player> draftedPlayers) {
+    public String saveDraftAdpResults(List<Player> draftedPlayers) {
         List<PlayerWithAdp> playersWithAdp = new ArrayList<>();
         for (int i = 0; i < draftedPlayers.size(); i++) {
             Player p = draftedPlayers.get(i);
@@ -25,20 +29,21 @@ public class PlayerService {
                     p.position(),
                     p.team(),
                     p.draftyear(),
-                    i + 1 // ADP as pick number
+                    i + 1
             ));
         }
 
-        // Step 1: Create new draft entry
-        long draftId = playerDao.createDraft();
+        long draftId = draftDao.createDraft();
+        playersWithAdp.forEach(playerWithAdp -> draftDao.insertDraftPickResult(draftId, playerWithAdp));
+        return draftDao.queryForUUID(draftId);
 
-        // Step 2: Insert each pick
-        playersWithAdp.forEach(playerWithAdp ->
-                playerDao.insertDraftPickResult(draftId, playerWithAdp)
-        );
     }
 
     public List<PlayerWithAdp> getAllPlayers() {
         return playerDao.getAllPlayers();
+    }
+
+    public CompletedDraftResponse getDraftByUuid(String uuid) {
+        return draftDao.draftByUUID(uuid);
     }
 }

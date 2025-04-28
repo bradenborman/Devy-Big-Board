@@ -55,36 +55,4 @@ public class PlayerDao {
                 ));
     }
 
-    public void insertDraftPickResult(long draftId, PlayerWithAdp playerWithAdp) {
-        String sql = """
-        INSERT INTO draft_picks (draft_id, pick_number, name, position, team)
-        VALUES (?, ?, ?, ?, ?)
-    """;
-
-        jdbcTemplate.update(sql,
-                draftId,
-                playerWithAdp.adp(),
-                playerWithAdp.name(),
-                playerWithAdp.position(),
-                playerWithAdp.team()
-        );
-    }
-
-
-    public long createDraft() {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO drafts (type) VALUES ('offline')",
-                    new String[] { "id" }
-            );
-            return ps;
-        }, keyHolder);
-
-        return keyHolder.getKey().longValue();
-    }
-
-
-
 }

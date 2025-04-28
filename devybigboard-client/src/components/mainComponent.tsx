@@ -58,11 +58,13 @@ const MainComponent: React.FC = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(flatPlayers),
             })
-                .then(res => {
+                .then(async res => {
                     if (!res.ok) throw new Error("Failed to submit draft.");
-                    console.log("Draft completed and submitted.");
+                    const uuid = await res.text();
+                    navigate(`/draft/${uuid}`);
                 })
                 .catch(err => console.error("Error submitting draft:", err));
+
         }
     }, [players]);
 

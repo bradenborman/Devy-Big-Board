@@ -1,24 +1,23 @@
 package devybigboard.controllers;
 
-import devybigboard.dao.PlayerDao;
+import devybigboard.models.CompletedDraftResponse;
 import devybigboard.models.Player;
 import devybigboard.models.PlayerWithAdp;
 import devybigboard.services.DraftService;
-import devybigboard.services.PlayerService;
+import devybigboard.services.DevyBoardService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class ApiController {
 
-    private final PlayerService playerService;
+    private final DevyBoardService devyBoardService;
     private final DraftService draftService;
 
-    public ApiController(PlayerService playerService, DraftService draftService) {
-        this.playerService = playerService;
+    public ApiController(DevyBoardService devyBoardService, DraftService draftService) {
+        this.devyBoardService = devyBoardService;
         this.draftService = draftService;
     }
 
@@ -29,13 +28,17 @@ public class ApiController {
 
     @GetMapping("/players")
     public List<PlayerWithAdp> allPlayers() {
-        return playerService.getAllPlayers();
+        return devyBoardService.getAllPlayers();
     }
 
     @PostMapping("/draft/complete")
-    public void draftComplete(@RequestBody List<Player> draftedPlayers) {
-       playerService.saveDraftAdpResults(draftedPlayers);
+    public String draftComplete(@RequestBody List<Player> draftedPlayers) {
+       return devyBoardService.saveDraftAdpResults(draftedPlayers);
     }
 
+    @GetMapping("draft/{uuid}")
+    public CompletedDraftResponse getDraftByUuid(@PathVariable String uuid) {
+        return devyBoardService.getDraftByUuid(uuid);
+    }
 
 }
