@@ -6,14 +6,14 @@ import CompletedDraft from './CompletedDraft';
 import LeagueFiltersPage from './LeagueFiltersPage';
 
 const AppWrapper: React.FC = () => {
-    useEffect(() => {
-        if (
-            window.location.protocol === 'http:' &&
-            window.location.hostname !== 'localhost'
-        ) {
-            window.location.href = window.location.href.replace('http:', 'https:');
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (
+    //         window.location.protocol === 'http:' &&
+    //         window.location.hostname !== 'localhost'
+    //     ) {
+    //         window.location.href = window.location.href.replace('http:', 'https:');
+    //     }
+    // }, []);
 
     return (
         <BrowserRouter>
