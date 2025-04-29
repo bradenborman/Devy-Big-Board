@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './league-filters.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface LeagueFilter {
     id: number;
@@ -16,6 +17,9 @@ interface Player {
 }
 
 const LeagueFiltersPage: React.FC = () => {
+    const navigate = useNavigate();
+
+
     const [filters, setFilters] = useState<LeagueFilter[]>([]);
     const [newLeagueName, setNewLeagueName] = useState('');
     const [allPlayers, setAllPlayers] = useState<Player[]>([]);
@@ -33,6 +37,11 @@ const LeagueFiltersPage: React.FC = () => {
             .then(data => setAllPlayers(data))
             .catch(err => console.error('Failed to load players:', err));
     }, []);
+
+    const startDraftWithFilter = (filterId: number) => {
+        navigate(`/?filterId=${filterId}`);
+    };
+
 
     const togglePlayer = (playerKey: string) => {
         setSelectedPlayers(prev =>
@@ -158,8 +167,12 @@ const LeagueFiltersPage: React.FC = () => {
                                         >
                                             Delete
                                         </button>
-
-                                        <button className="start-draft-btn" disabled>Start Draft</button>
+                                        <button
+                                            className="start-draft-btn"
+                                            onClick={() => startDraftWithFilter(filter.id)}
+                                        >
+                                            Start Draft
+                                        </button>
                                     </td>
                                 </tr>
                             ))}

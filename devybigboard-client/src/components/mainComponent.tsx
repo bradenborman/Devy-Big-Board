@@ -18,6 +18,9 @@ const MainComponent: React.FC = () => {
     const params = new URLSearchParams(location.search);
     const teamsFromURL = Number(params.get('teams'));
     const roundsFromURL = Number(params.get('rounds'));
+    const filterIdFromURL = params.get('filterId');
+
+
     const hasValidParams = (teamsFromURL > 0 && teamsFromURL <= 16) && (roundsFromURL > 0 && roundsFromURL <= 15);
 
 
@@ -121,11 +124,20 @@ const MainComponent: React.FC = () => {
     };
 
     useEffect(() => {
-        setDefaultPlayerPool();
-    }, []);
+        if (filterIdFromURL) {
+            fetch(`/api/players/filter/${filterIdFromURL}`)
+                .then((res) => res.json())
+                .then((data: Player[]) => setPlayerPool(data))
+                .catch((err) => console.error("Failed to fetch players with filter:", err));
+        } else {
+            setDefaultPlayerPool();
+        }
+    }, [filterIdFromURL]);
+
 
     const createGrid = () => {
-        const searchParams = new URLSearchParams();
+        const searchParams = new URLSearchParams(location.search);
+
         searchParams.set('teams', teams.toString());
         searchParams.set('rounds', rounds.toString());
 
@@ -134,6 +146,7 @@ const MainComponent: React.FC = () => {
         setPlayers(Array.from({ length: rounds }, () => Array(teams).fill(null)));
         setIsGridCreated(true);
     };
+
 
 
     const addPlayerToNextOpenSpot = (player: Player) => {
