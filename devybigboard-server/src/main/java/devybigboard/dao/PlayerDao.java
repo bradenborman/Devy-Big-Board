@@ -19,40 +19,40 @@ public class PlayerDao {
 
     public List<PlayerWithAdp> getAllPlayers() {
         String sql = """
-    SELECT p.name, p.position, p.team, p.draftyear,
-           COALESCE((
-               SELECT AVG(pick_number)
-               FROM draft_picks dp
-               WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
-           ), 999) AS adp
-    FROM players p
-    ORDER BY 
-           COALESCE((
-               SELECT AVG(pick_number)
-               FROM draft_picks dp
-               WHERE dp.name = p.name AND dp.position = p.position AND dp.team = p.team
-           ), 999)
+        SELECT p.name, p.position, p.team, p.draftyear,
+               COALESCE((
+                   SELECT AVG(dp.pick_number)
+                   FROM draft_picks dp
+                   JOIN drafts d ON d.id = dp.draft_id
+                   WHERE dp.name = p.name
+                     AND dp.position = p.position
+                     AND dp.team = p.team
+                     AND d.type = 'offline'
+               ), 999) AS adp
+        FROM players p
+        ORDER BY adp
     """;
 
-
         return jdbcTemplate.query(sql, (rs, rowNum) -> new PlayerWithAdp(
-                        rs.getString("name"),
-                        rs.getString("position"),
-                        rs.getString("team"),
-                        rs.getInt("draftyear"),
-                        rs.getDouble("adp")
-                ));
+                rs.getString("name"),
+                rs.getString("position"),
+                rs.getString("team"),
+                rs.getInt("draftyear"),
+                rs.getDouble("adp")
+        ));
     }
 
     public List<PlayerWithAdp> getPlayersExcludingFilter(long filterId) {
         String sql = """
         SELECT p.name, p.position, p.team, p.draftyear,
                COALESCE((
-                   SELECT AVG(pick_number)
+                   SELECT AVG(dp.pick_number)
                    FROM draft_picks dp
-                   WHERE dp.name = p.name 
-                     AND dp.position = p.position 
+                   JOIN drafts d ON d.id = dp.draft_id
+                   WHERE dp.name = p.name
+                     AND dp.position = p.position
                      AND dp.team = p.team
+                     AND d.type = 'offline'
                ), 999) AS adp
         FROM players p
         WHERE NOT EXISTS (
@@ -78,6 +78,7 @@ public class PlayerDao {
                         rs.getDouble("adp")
                 ));
     }
+
 
 
 }

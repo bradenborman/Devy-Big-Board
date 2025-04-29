@@ -57,8 +57,9 @@ const MainComponent: React.FC = () => {
 
         if (allFilled) {
             const flatPlayers = players.flat().filter((p): p is Player => p !== null);
+            const draftType = filterIdFromURL ? "filtered" : "offline";
 
-            fetch('/api/draft/complete', {
+            fetch(`/api/draft/complete?draftType=${draftType}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(flatPlayers),

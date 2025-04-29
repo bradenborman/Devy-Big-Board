@@ -33,8 +33,9 @@ public class ApiController {
     }
 
     @PostMapping("/draft/complete")
-    public String draftComplete(@RequestBody List<Player> draftedPlayers) {
-       return devyBoardService.saveDraftAdpResults(draftedPlayers);
+    public String draftComplete(@RequestParam(defaultValue = "offline") String draftType,
+                                @RequestBody List<Player> draftedPlayers) {
+       return devyBoardService.saveDraftAdpResults(draftType, draftedPlayers);
     }
 
     @GetMapping("draft/{uuid}")

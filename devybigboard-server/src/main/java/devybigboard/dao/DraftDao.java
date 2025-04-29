@@ -11,7 +11,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -61,22 +60,22 @@ public class DraftDao {
     }
 
 
-    public long createDraft() {
+    public long createDraft(String draftType) {
+        String sql = """
+        INSERT INTO drafts (created_at, draft_date, draft_time, type, uuid)
+        VALUES (NOW(), CURRENT_DATE(), CURRENT_TIME(), :type, UUID())
+    """;
+
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("type", draftType);
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(
-                    """
-                    INSERT INTO drafts (created_at, draft_date, draft_time, type, uuid)
-                    VALUES (NOW(), CURRENT_DATE(), CURRENT_TIME(), 'offline', UUID())
-                    """,
-                    new String[]{"id"}
-            );
-            return ps;
-        }, keyHolder);
+        namedParameterJdbcTemplate.update(sql, params, keyHolder, new String[]{"id"});
 
         return keyHolder.getKey().longValue();
     }
+
 
 
     private final RowMapper<LeagueFilter> leagueFilterMapper = (rs, rowNum) -> new LeagueFilter(

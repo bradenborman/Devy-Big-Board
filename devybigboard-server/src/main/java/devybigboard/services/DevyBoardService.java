@@ -21,7 +21,7 @@ public class DevyBoardService {
         this.playerDao = playerDao;
     }
 
-    public String saveDraftAdpResults(List<Player> draftedPlayers) {
+    public String saveDraftAdpResults(String draftType, List<Player> draftedPlayers) {
         List<PlayerWithAdp> playersWithAdp = new ArrayList<>();
         for (int i = 0; i < draftedPlayers.size(); i++) {
             Player p = draftedPlayers.get(i);
@@ -34,7 +34,7 @@ public class DevyBoardService {
             ));
         }
 
-        long draftId = draftDao.createDraft();
+        long draftId = draftDao.createDraft(draftType);
         playersWithAdp.forEach(playerWithAdp -> draftDao.insertDraftPickResult(draftId, playerWithAdp));
         return draftDao.queryForUUID(draftId);
     }
